@@ -13,9 +13,9 @@ export default class Many extends Body{
       }
 
       create(world){
+        this.animate.animated = true
         this.animate.setupAnimate();
-        this.sensor = true
-        console.log(this.animate.newArrImg)
+        this.sensor = true;
       }
 
       view(p5){

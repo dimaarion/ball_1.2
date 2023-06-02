@@ -6,6 +6,7 @@ import {
   size,
   sizeX,
   sizeY,
+  scale
 } from "../action";
 import Animate from "./Animate";
 import Body from "./Body";
@@ -39,9 +40,8 @@ export default class Lift extends Body {
    //  this.animate.setup(p5);
    //  this.animate.animateE("./asset/level1/objects/lift.png");
   }
-  setup(engine) {
-    // this.engine = engine;
-    // this.slope = 0.6;
+  setup(engine, scena) {
+   
   }
 
   speedCalculation(p5) {
@@ -50,6 +50,10 @@ export default class Lift extends Body {
     return p;
   }
 
+
+  trans(){
+   // this.body.map((b)=>console.log(b))
+  }
   view(p5) {
     if (this.body.length > 0) {
       this.world.bodies
