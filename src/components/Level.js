@@ -60,8 +60,10 @@ export default class Level {
     this.lift3.createRect(world, this.scena);
     this.lift4.createRect(world, this.scena);
     this.pointB.static = true;
+    this.pointB.sensor = true;
     this.pointT.static = false;
     this.portal.sensor = true;
+    this.lift.static = false
     this.portal.createRect(world, this.scena);
     this.pointB.createRect(world, this.scena);
     this.pointT.createRect(world, this.scena);

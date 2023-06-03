@@ -10,7 +10,7 @@ export default class Events {
     let body = {};
 let d = 0;
 let d2 = 0;
-let speed = 1;
+let speed = 3;
     Matter.Events.on(engine, "collisionStart", function (event) {
       var pairs = event.pairs;
       for (var i = 0, j = pairs.length; i != j; ++i) {
@@ -28,6 +28,9 @@ let speed = 1;
         }
         if (pair.bodyA.label === "player" && pair.bodyB.typeObject === "point_b_1") {
           d = -speed
+        }
+        if (pair.bodyA.label === "player" && pair.bodyB.typeObject === "point_s_1") {
+          d = speed
         }
         if (pair.bodyA.label === "player" && pair.bodyB.typeObject === "point_b_2") {
           d2 = -speed
@@ -66,7 +69,7 @@ let speed = 1;
     engine.world.bodies.filter((f)=>f.typeObject === "lift_1").map((b)=>console.log(b))
     Matter.Events.on(engine, "beforeUpdate", function (event) {
     
-         engine.world.bodies.filter((f)=>f.typeObject === "lift_1").map((b)=>Matter.Body.translate(b, { x: 0, y: d }))
+         engine.world.bodies.filter((f)=>f.typeObject === "lift_1").map((b)=>Matter.Body.setVelocity(b, { x: 0, y: d }))
          engine.world.bodies.filter((f)=>f.typeObject === "lift_2").map((b)=>Matter.Body.translate(b, { x: 0, y: d2 }))
      
     });
