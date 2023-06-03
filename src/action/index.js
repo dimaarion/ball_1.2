@@ -1,4 +1,4 @@
-export const scale = 0.5;
+export const scale = 1.5;
 
 export const collideRectRect = function (x, y, w, h, x2, y2, w2, h2) {
   //2d

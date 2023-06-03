@@ -34,16 +34,7 @@ export default class Player extends Body {
     this.p5 = p5;
   }
 
-  setup(engine) {
-    Matter.Events.on(engine, "collisionActive", function (event) {
-      var pairs = event.pairs;
-      for (var i = 0, j = pairs.length; i != j; ++i) {
-        var pair = pairs[i];
-        if (pair.bodyA.label === "player" && pair.bodyB.label === "platform") {
-        }
-      }
-    });
-  }
+  setup(engine) {}
 
   view(p5) {
     p5.push();
@@ -53,9 +44,10 @@ export default class Player extends Body {
     p5.drawingContext.shadowOffsetY = 0;
     p5.drawingContext.shadowBlur = 15;
     p5.drawingContext.shadowColor = p5.color(207, 7, 99);
+    // p5.rotateX(90);
     this.viewEllipse(p5);
-    //   this.setRotate();
-    this.setVelosity(this.speed, this.up);
+    //this.setRotate();
+    this.setVelosity(this.speed, 0);
 
     p5.pop();
     //   p5.fill(110);

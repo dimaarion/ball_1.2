@@ -9,6 +9,7 @@ export default class Events {
     let body = {};
     let d = 0;
     let d2 = 0;
+    let d3 = 0;
     let speed = 3;
     Matter.Events.on(engine, "collisionStart", function (event) {
       var pairs = event.pairs;
@@ -21,12 +22,7 @@ export default class Events {
             y: 100,
           });
         }
-        if (
-          pair.bodyA.typeObject === "lift_1" &&
-          pair.bodyB.typeObject === "point_t_1"
-        ) {
-          //   d = 0
-        }
+
         if (
           pair.bodyA.label === "player" &&
           pair.bodyB.typeObject === "point_b_1"
@@ -41,15 +37,21 @@ export default class Events {
         }
         if (
           pair.bodyA.label === "player" &&
-          pair.bodyB.typeObject === "point_b_2"
+          pair.bodyB.typeObject === "point_r_1"
         ) {
-          d2 = -speed;
+          d2 = speed;
         }
         if (
-          pair.bodyA.typeObject === "lift_2" &&
-          pair.bodyB.typeObject === "point_t_2"
+          pair.bodyA.label === "player" &&
+          pair.bodyB.typeObject === "point_b_3"
         ) {
-          d2 = 0;
+          d3 = -speed;
+        }
+        if (
+          pair.bodyA.label === "player" &&
+          pair.bodyB.typeObject === "point_r_1"
+        ) {
+          // d2 = -speed;
         }
       }
     });
@@ -62,18 +64,50 @@ export default class Events {
         }
       }
     });
-    engine.world.bodies
-      .filter((f) => f.typeObject === "lift_1")
-      .map((b) => console.log(b));
+
+    Matter.Events.on(engine, "collisionActive", function (event) {
+      var pairs = event.pairs;
+      for (var i = 0, j = pairs.length; i != j; ++i) {
+        var pair = pairs[i];
+      }
+    });
+
     Matter.Events.on(engine, "beforeUpdate", function (event) {
       engine.world.bodies
         .filter((f) => f.typeObject === "lift_1")
         .map((b) => {
-          if (b.position.y >= scena.size(80, scale)) {
-            //  Matter.Body.translate(b, { x: 0, y: d })
+          if (
+            b.position.y >=
+            engine.world.bodies.filter((f) => f.typeObject === "point_t_1")[0]
+              .position.y
+          ) {
+            Matter.Body.translate(b, { x: 0, y: d });
           }
         });
-      // engine.world.bodies.filter((f)=>f.typeObject === "lift_2").map((b)=>Matter.Body.translate(b, { x: 0, y: d2 }))
+
+      engine.world.bodies
+        .filter((f) => f.typeObject === "lift_2")
+        .map((b) => {
+          if (
+            b.position.x <=
+            engine.world.bodies.filter((f) => f.typeObject === "point_r_2")[0]
+              .position.x
+          ) {
+            Matter.Body.translate(b, { x: d2, y: 0 });
+          }
+        });
+
+      engine.world.bodies
+        .filter((f) => f.typeObject === "lift_3")
+        .map((b) => {
+          if (
+            b.position.y >=
+            engine.world.bodies.filter((f) => f.typeObject === "point_t_3")[0]
+              .position.y
+          ) {
+            Matter.Body.translate(b, { x: 0, y: d3 });
+          }
+        });
     });
   }
 }
