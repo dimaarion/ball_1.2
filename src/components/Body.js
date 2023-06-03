@@ -60,6 +60,10 @@ export default class Body {
     }
   }
 
+  getType(engine, name, n = 0) {
+    return engine.world.bodies.filter((f) => f.typeObject === name)[n];
+  }
+
   setRotate() {
     if (this.world !== undefined) {
       this.world.bodies

@@ -1,12 +1,13 @@
 import Matter from "matter-js";
 import { getRndInteger, scale } from "../action";
+import Body from "./Body";
 export default class Events {
   getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
   collideStart(engine, scena) {
-    let body = {};
+    let body = new Body();
     let d = 0;
     let d2 = 0;
     let d3 = 0;
@@ -71,19 +72,15 @@ export default class Events {
         var pair = pairs[i];
       }
     });
+    console.log(body.getType(engine, "lift_1"));
 
     Matter.Events.on(engine, "beforeUpdate", function (event) {
-      engine.world.bodies
-        .filter((f) => f.typeObject === "lift_1")
-        .map((b) => {
-          if (
-            b.position.y >=
-            engine.world.bodies.filter((f) => f.typeObject === "point_t_1")[0]
-              .position.y
-          ) {
-            Matter.Body.translate(b, { x: 0, y: d });
-          }
-        });
+      if (
+        body.getType(engine, "lift_1").position.y >=
+        body.getType(engine, "point_t_1").position.y
+      ) {
+        Matter.Body.translate(body.getType(engine, "lift_1"), { x: 0, y: d });
+      }
 
       engine.world.bodies
         .filter((f) => f.typeObject === "lift_2")
