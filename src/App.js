@@ -23,7 +23,7 @@ function App() {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
     engine = Engine.create();
-    engine.gravity.y = 2;
+    engine.gravity.y = 5;
     world = engine.world;
     Engine.run(engine);
     level.create(world, engine);

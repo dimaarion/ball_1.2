@@ -63,7 +63,7 @@ export default class Level {
     this.pointB.sensor = true;
     this.pointT.static = false;
     this.portal.sensor = true;
-    this.lift.static = false
+    
     this.portal.createRect(world, this.scena);
     this.pointB.createRect(world, this.scena);
     this.pointT.createRect(world, this.scena);
@@ -80,7 +80,7 @@ export default class Level {
   view(p5) {
     p5.background(102, 98, 97);
     p5.rectMode(p5.CENTER);
-
+this.player.setVelosity(0,-1)
     this.player.translates(p5);
     p5.image(
       this.animate.sprite(),
@@ -109,13 +109,14 @@ export default class Level {
     this.pointT.viewRect(p5)
     this.pointB.viewRect(p5)
     this.lift.trans(p5)
+    
   }
 
   pressed(e) {
     if (e.key === "ArrowRight") {
-      this.player.speed = 0.1;
+      this.player.speed = 1;
     } else if (e.key === "ArrowLeft") {
-      this.player.speed = -0.1;
+      this.player.speed = -1;
     }
   }
   rePressed(e) {

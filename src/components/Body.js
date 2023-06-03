@@ -70,6 +70,14 @@ export default class Body {
     }
   }
 
+  setVelosity(x,y){
+    if (this.world !== undefined) {
+      this.world.bodies
+        .filter((f) => f.label === this.name)
+        .map((b) => Matter.Body.setVelocity(b, {x:x,y:y}));
+    }
+  }
+
   createRect(world, scena) {
     this.world = world;
     this.getObj = scena.getObjects(this.name);

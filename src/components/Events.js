@@ -24,7 +24,7 @@ let speed = 3;
 
         }
         if (pair.bodyA.typeObject === "lift_1" && pair.bodyB.typeObject === "point_t_1") {
-          d = 0
+       //   d = 0
         }
         if (pair.bodyA.label === "player" && pair.bodyB.typeObject === "point_b_1") {
           d = -speed
@@ -42,20 +42,7 @@ let speed = 3;
       }
     });
 
-    Matter.Events.on(engine, "collisionActive", function (event) {
-      var pairs = event.pairs;
-      for (var i = 0, j = pairs.length; i != j; ++i) {
-        var pair = pairs[i];
-        if (pair.bodyA.label === "player" && pair.bodyB.label === "lift") {
-                if( pair.bodyB.position.y >= scena.size(80,scale) ){
-               //  d = -1
-                }else{
-               //   d = 1
-                }
-        }
-       
-      }
-    });
+    
 
     Matter.Events.on(engine, "collisionEnd", function (event) {
       var pairs = event.pairs;
@@ -69,7 +56,12 @@ let speed = 3;
     engine.world.bodies.filter((f)=>f.typeObject === "lift_1").map((b)=>console.log(b))
     Matter.Events.on(engine, "beforeUpdate", function (event) {
     
-         engine.world.bodies.filter((f)=>f.typeObject === "lift_1").map((b)=>Matter.Body.setVelocity(b, { x: 0, y: d }))
+         engine.world.bodies.filter((f)=>f.typeObject === "lift_1").map((b)=>{
+          if(b.position.y >= scena.size(80,scale)){
+              Matter.Body.translate(b, { x: 0, y: d })}
+          }
+        
+          )
          engine.world.bodies.filter((f)=>f.typeObject === "lift_2").map((b)=>Matter.Body.translate(b, { x: 0, y: d2 }))
      
     });
