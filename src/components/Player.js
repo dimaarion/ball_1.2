@@ -31,23 +31,18 @@ export default class Player extends Body {
   }
   loadImg(p5) {
     this.p5 = p5;
-   
   }
 
-setup(engine){
-  Matter.Events.on(engine, "collisionActive", function (event) {
-    var pairs = event.pairs;
-    for (var i = 0, j = pairs.length; i != j; ++i) {
-      var pair = pairs[i];
-      if (pair.bodyA.label === "player" && pair.bodyB.label === "platform") {
-              
+  setup(engine) {
+    Matter.Events.on(engine, "collisionActive", function (event) {
+      var pairs = event.pairs;
+      for (var i = 0, j = pairs.length; i != j; ++i) {
+        var pair = pairs[i];
+        if (pair.bodyA.label === "player" && pair.bodyB.label === "platform") {
+        }
       }
-     
-    }
-  });
-}
-
-
+    });
+  }
 
   view(p5) {
     p5.push();
@@ -58,7 +53,10 @@ setup(engine){
     p5.drawingContext.shadowBlur = 15;
     p5.drawingContext.shadowColor = p5.color(207, 7, 99);
     this.viewEllipse(p5);
-   // this.setVelosity(0,this.speed);
+    //   this.setRotate();
+
+    this.setVelosity(this.speed, this.up);
+
     p5.pop();
     //   p5.fill(110);
     //  p5.rectMode(p5.CENTER);

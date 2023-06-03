@@ -1,7 +1,8 @@
 import Matter from "matter-js";
-import {scale} from "../action";
+import { scale } from "../action";
 import Scena from "./Scena";
 import Animate from "./Animate";
+import Player from "./Player";
 export default class Body {
   name;
   world;
@@ -30,24 +31,21 @@ export default class Body {
     return this.n++;
   }
 
-  loadImage(p5,image) {
+  loadImage(p5, image) {
     this.image = image;
     this.animate.setup(p5);
-    
   }
 
-
-  setupImage(image){
+  setupImage(image) {
     this.image = image;
     this.animate.animateE(this.image);
-    
   }
 
-  setupAnimate(image){
-    this.animate.animateD(image,8)
-    this.animate.animated = true
-   
-    this.animate.setupAnimate()
+  setupAnimate(image) {
+    this.animate.animateD(image, 8);
+    this.animate.animated = true;
+
+    this.animate.setupAnimate();
   }
   translates(p5) {
     if (this.world !== undefined) {
@@ -70,11 +68,11 @@ export default class Body {
     }
   }
 
-  setVelosity(x,y){
+  setVelosity(x, y) {
     if (this.world !== undefined) {
       this.world.bodies
         .filter((f) => f.label === this.name)
-        .map((b) => Matter.Body.setVelocity(b, {x:x,y:y}));
+        .map((b) => Matter.Body.setVelocity(b, { x: x, y: y }));
     }
   }
 
@@ -103,9 +101,9 @@ export default class Body {
   createEllipse(world, scena) {
     this.world = world;
     this.getObj = scena.getObjects(this.name);
-    console.log(scena.size(1,scale))
-     this.body = this.getObj.map((b) =>
-    Matter.Bodies.circle(
+    console.log(scena.size(1, scale));
+    this.body = this.getObj.map((b) =>
+      Matter.Bodies.circle(
         scena.size(b.x + b.width / 2, scale),
         scena.size(b.y + b.height / 2, scale),
         scena.size(b.width / 2, scale),
@@ -209,43 +207,60 @@ export default class Body {
       p5.rectMode(p5.CENTER);
       this.world.bodies
         .filter((f) => f.label === this.name)
-        .map((b) => p5.image(this.animate.sprite(),b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height));
+        .map((b) =>
+          p5.image(
+            this.animate.sprite(),
+            b.position.x - b.width / 2,
+            b.position.y - b.height / 2,
+            b.width,
+            b.height
+          )
+        );
     }
   }
 
   viewAnimate(p5) {
     if (this.world !== undefined) {
-      
       p5.rectMode(p5.CENTER);
       this.world.bodies
         .filter((f) => f.label === this.name)
         .map((b) => {
-          this.animate.params()
-          p5.image(this.animate.sprite(),b.position.x - b.width / 2, b.position.y - b.height / 2, b.width, b.height)
+          this.animate.params();
+          p5.image(
+            this.animate.sprite(),
+            b.position.x - b.width / 2,
+            b.position.y - b.height / 2,
+            b.width,
+            b.height
+          );
         });
     }
   }
 
-  viewEllipseImage(p5,image) {
+  viewEllipseImage(p5, image) {
     if (this.world !== undefined) {
       p5.ellipseMode(p5.RADIUS);
       this.world.bodies
         .filter((f) => f.label === this.name)
         .map((b) =>
-          p5.image(image,b.position.x, b.position.y, b.circleRadius, b.circleRadius)
+          p5.image(
+            image,
+            b.position.x,
+            b.position.y,
+            b.circleRadius,
+            b.circleRadius
+          )
         );
     }
   }
-  viewEllipseAnimate(p5,img) {
+  viewEllipseAnimate(p5, img) {
     if (this.world !== undefined) {
       p5.ellipseMode(p5.RADIUS);
       this.world.bodies
         .filter((f) => f.label === this.name)
-        .map((b) =>
-         { 
-          p5.image(img,b.position.x, b.position.y)
-        }
-        );
+        .map((b) => {
+          p5.image(img, b.position.x, b.position.y);
+        });
     }
   }
 }

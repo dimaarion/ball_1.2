@@ -5,7 +5,7 @@ import Level from "./components/Level";
 import { scenaSize, size } from "./action/index";
 import Player from "./components/Player";
 import Scena from "./components/Scena";
-import scena1 from "./scena/scena.json"
+import scena1 from "./scena/scena.json";
 import { useEffect } from "react";
 function App() {
   let Engine = Matter.Engine;
@@ -13,23 +13,21 @@ function App() {
   let level = new Level();
   let player = new Player("player");
   let scena = new Scena(scena1);
-  
+
   const preload = (p5) => {
     level.preload(p5);
     //scena.preload(p5)
-
   };
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
     engine = Engine.create();
-    engine.gravity.y = 5;
+    engine.gravity.y = 20;
     world = engine.world;
     Engine.run(engine);
     level.create(world, engine);
     // scena.create()
     // player.createEllipse(world,scena)
-
   };
 
   const draw = (p5) => {
