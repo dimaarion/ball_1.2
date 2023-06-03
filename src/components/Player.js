@@ -22,6 +22,7 @@ export default class Player extends Body {
   getObj;
   image = "./asset/player.png";
   frame = 1;
+  baseY = 0;
   img;
   world;
   p5;
@@ -54,7 +55,6 @@ export default class Player extends Body {
     p5.drawingContext.shadowColor = p5.color(207, 7, 99);
     this.viewEllipse(p5);
     //   this.setRotate();
-
     this.setVelosity(this.speed, this.up);
 
     p5.pop();

@@ -111,14 +111,16 @@ export default class Level {
   }
 
   pressed(e) {
+    console.log(e.key);
     if (e.key === "ArrowRight") {
       this.player.speed = 10;
     } else if (e.key === "ArrowLeft") {
       this.player.speed = -10;
     }
     if (e.key === "ArrowUp") {
-      console.log(this.player.timer(100));
       this.player.up = -10;
+    } else if (e.key === "ArrowDown") {
+      this.player.up = 10;
     }
   }
   rePressed(e) {
@@ -128,6 +130,8 @@ export default class Level {
       this.player.speed = 0;
     }
     if (e.key === "ArrowUp") {
+      this.player.up = 0;
+    } else if (e.key === "ArrowDown") {
       this.player.up = 0;
     }
   }
