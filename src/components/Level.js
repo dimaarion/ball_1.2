@@ -30,6 +30,7 @@ export default class Level {
   imgMap;
 
   preload(p5) {
+    this.event.preload(p5);
     this.player.loadImg(p5);
     this.scena.preload(p5);
     this.animate.setup(p5);

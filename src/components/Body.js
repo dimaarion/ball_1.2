@@ -15,9 +15,14 @@ export default class Body {
   n = 0;
   scena;
   image;
+  p5;
   animate = new Animate();
   constructor(name) {
     this.name = name;
+  }
+
+  ini(p5) {
+    this.p5 = p5;
   }
 
   main(world) {
@@ -60,8 +65,90 @@ export default class Body {
     }
   }
 
+  collideRectRect(x, y, w, h, x2, y2, w2, h2) {
+    //2d
+    //add in a thing to detect rectMode CENTER
+    if (
+      x + w >= x2 && // r1 right edge past r2 left
+      x <= x2 + w2 && // r1 left edge past r2 right
+      y + h >= y2 && // r1 top edge past r2 bottom
+      y <= y2 + h2
+    ) {
+      // r1 bottom edge past r2 top
+      return true;
+    }
+    return false;
+  }
+
+  collidePointRect(pointX, pointY, x, y, xW, yW) {
+    //2d
+    if (
+      pointX >= x && // right of the left edge AND
+      pointX <= x + xW && // left of the right edge AND
+      pointY >= y && // below the top AND
+      pointY <= y + yW
+    ) {
+      // above the bottom
+
+      return true;
+    }
+    return false;
+  }
+
   getType(engine, name, n = 0) {
     return engine.world.bodies.filter((f) => f.typeObject === name)[n];
+  }
+  collideRectCircle = function (rx, ry, rw, rh, cx, cy, diameter) {
+    //2d
+    // temporary variables to set edges for testing
+    var testX = cx;
+    var testY = cy;
+
+    // which edge is closest?
+    if (cx < rx) {
+      testX = rx; // left edge
+    } else if (cx > rx + rw) {
+      testX = rx + rw;
+    } // right edge
+
+    if (cy < ry) {
+      testY = ry; // top edge
+    } else if (cy > ry + rh) {
+      testY = ry + rh;
+    } // bottom edge
+
+    // // get distance from closest edges
+    var distance = this.p5.dist(cx, cy, testX, testY);
+
+    // if the distance is less than the radius, collision!
+    if (distance <= diameter / 2) {
+      return true;
+    }
+    return false;
+  };
+
+  collidePointRectCircle(engine, name1, name2) {
+    return this.collideRectRect(
+      this.getType(engine, name1).position.x,
+      this.getType(engine, name1).position.y,
+      this.getType(engine, name1).width,
+      this.getType(engine, name1).height,
+      this.getType(engine, name2).position.x,
+      this.getType(engine, name2).position.y,
+      this.getType(engine, name2).width,
+      this.getType(engine, name2).width
+    );
+  }
+
+  collideTypePointRect(engine, name1, name2) {
+    return this.collidePointRect(
+      this.getType(engine, name1).position.x,
+      this.getType(engine, name1).position.y,
+      this.getType(engine, name2).position.x,
+      this.getType(engine, name2).position.y,
+      this.getType(engine, name2).width,
+      this.getType(engine, name2).height
+    );
   }
 
   setRotate() {
