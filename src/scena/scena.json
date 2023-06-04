@@ -670,6 +670,17 @@
           "width": 5,
           "x": 174.166666666667,
           "y": 142.166666666667
+        },
+        {
+          "height": 5,
+          "id": 114,
+          "name": "pointBottom",
+          "rotation": 0,
+          "type": "point_r_l1",
+          "visible": true,
+          "width": 5,
+          "x": 47.5,
+          "y": 110.166666666667
         }
       ],
       "opacity": 1,
@@ -858,7 +869,7 @@
     }
   ],
   "nextlayerid": 9,
-  "nextobjectid": 114,
+  "nextobjectid": 115,
   "orientation": "orthogonal",
   "renderorder": "right-down",
   "tiledversion": "2021.03.23",

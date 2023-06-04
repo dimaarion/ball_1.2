@@ -37,9 +37,9 @@ export default class Events {
         }
         if (
           pair.bodyA.label === "player" &&
-          pair.bodyB.typeObject === "point_s_1"
+          pair.bodyB.typeObject === "point_r_l1"
         ) {
-          //  d = speed;
+          d = 2;
         }
         if (
           pair.bodyA.label === "player" &&
