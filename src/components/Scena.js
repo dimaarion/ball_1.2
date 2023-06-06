@@ -1,9 +1,11 @@
+import { scale } from "../action";
 export default class Scena{
     name = "";
     scena = {};
     scenaWidth = 0;
     scenaHeigiht = 0;
     scenaSize = 0;
+    scale = scale;
     constructor(scena){
         this.scena = scena;
     }

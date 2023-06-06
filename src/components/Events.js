@@ -22,37 +22,37 @@ export default class Events {
       for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
         // console.log(pair);
-        if (pair.bodyB.label === "portal") {
+        if (pair.bodyB.label === "portal" && pair.bodyB.typeObject == "1") {
           Matter.Body.setPosition(pair.bodyA, {
-            x: 100,
-            y: 100,
+            x:body.getType(engine, "point_portal_1").position.x,
+            y: body.getType(engine, "point_portal_1").position.y,
           });
         }
 
         if (
           pair.bodyA.label === "player" &&
-          pair.bodyB.typeObject === "point_b_1"
+          pair.bodyB.typeObject === "point_active_lift_1_up"
         ) {
           d = 1;
         }
         if (
           pair.bodyA.label === "player" &&
-          pair.bodyB.typeObject === "point_r_l1"
+          pair.bodyB.typeObject === "point_active_lift_1_down"
         ) {
           d = 2;
         }
         if (
           pair.bodyA.label === "player" &&
-          pair.bodyB.typeObject === "point_r_1"
+          pair.bodyB.typeObject === "point_active_lift_3"
         ) {
-          d2 = speed;
+          d2 = 1;
         }
         if (
           pair.bodyA.label === "player" &&
           pair.bodyB.typeObject === "point_b_3"
         ) {
           d3 = -speed;
-          d = 2;
+         
         }
         if (
           pair.bodyA.label === "player" &&
@@ -63,63 +63,20 @@ export default class Events {
       }
     });
 
-    Matter.Events.on(engine, "collisionEnd", function (event) {
-      var pairs = event.pairs;
-      for (var i = 0, j = pairs.length; i != j; ++i) {
-        var pair = pairs[i];
-        if (pair.bodyA.label === "player" && pair.bodyB.label === "lift") {
-        }
-      }
-    });
-
     Matter.Events.on(engine, "beforeUpdate", function (event) {
-      if (
-        d === 1 &&
-        body.getType(engine, "point_t_1").position.y >
-          body.getType(engine, "lift_1").position.y
-      ) {
-        d = 0;
-      }
-      if (
-        d === 2 &&
-        body.getType(engine, "point_v_3").position.y <
-          body.getType(engine, "lift_1").position.y
-      ) {
-        d = 0;
-      }
-
+     
       if (d === 1) {
-        Matter.Body.translate(body.getType(engine, "lift_1"), {
-          x: 0,
-          y: -speed,
-        });
+        body.translateY(engine, "point_up_lift_1","lift_1","lift_1");
       } else if (d === 2) {
-        Matter.Body.translate(body.getType(engine, "lift_1"), {
-          x: 0,
-          y: speed,
-        });
+        body.translateY(engine, "point_down_lift_1","lift_1","lift_1");
+      }
+      if (d2 === 1) {
+        body.translateY(engine, "point_Lift_3","lift_3","lift_3");
+      } else if (d === 2) {
+        body.translateY(engine, "point_down_lift_1","lift_1","lift_1");
       }
 
-      if (
-        body.getType(engine, "lift_2").position.x <=
-        body.getType(engine, "point_r_2").position.x
-      ) {
-        Matter.Body.translate(body.getType(engine, "lift_2"), { x: d2, y: 0 });
-      }
-
-      if (
-        body.getType(engine, "lift_3").position.y >=
-        body.getType(engine, "point_t_3").position.y
-      ) {
-        Matter.Body.translate(body.getType(engine, "lift_3"), { x: 0, y: d3 });
-      }
-
-      if (
-        body.getType(engine, "lift_1").position.y <=
-        body.getType(engine, "point_v_3").position.y
-      ) {
-        //   Matter.Body.translate(body.getType(engine, "lift_1"), { x: 0, y: d3 });
-      }
+     
     });
   }
 }

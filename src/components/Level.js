@@ -54,7 +54,8 @@ export default class Level {
     this.lift3.setupImage("./asset/level1/objects/lift.png");
     this.lift4.setupImage("./asset/level1/objects/lift.png");
     this.lift.setup(engine, this.scena);
-    this.player.createEllipse(world, this.scena);
+    this.player.setup(engine,world,this.scena);
+   // this.player.createEllipse(world, this.scena);
     this.walls.createRect(world, this.scena);
     this.lift.createRect(world, this.scena);
     this.lift2.createRect(world, this.scena);
@@ -64,7 +65,7 @@ export default class Level {
     this.pointB.sensor = true;
     this.pointT.static = false;
     this.portal.sensor = true;
-    this.player.setup(engine);
+    
     this.portal.createRect(world, this.scena);
     this.pointB.createRect(world, this.scena);
     this.pointT.createRect(world, this.scena);
@@ -114,9 +115,9 @@ export default class Level {
   pressed(e) {
     console.log(e.key);
     if (e.key === "ArrowRight") {
-      this.player.speed = 10;
+      this.player.speed = 5;
     } else if (e.key === "ArrowLeft") {
-      this.player.speed = -10;
+      this.player.speed = -5;
     }
     if (e.key === "ArrowUp") {
       //  this.player.up = -10;

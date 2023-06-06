@@ -52,6 +52,14 @@ export default class Body {
 
     this.animate.setupAnimate();
   }
+
+translateY(engine, name1, name2,events, n = 10){
+  Matter.Body.translate(this.getType(engine, events), {
+    x: 0,
+    y: (this.getType(engine, name1).position.y / n) - (this.getType(engine, name2).position.y / n),
+  });
+}
+
   translates(p5) {
     if (this.world !== undefined) {
       this.world.bodies
